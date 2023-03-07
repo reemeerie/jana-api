@@ -33,7 +33,7 @@ const createNote = async (req, res) => {
     let decodedToken = null
 
     const authorization = req.get('authorization')
-
+    
     if (authorization && authorization.toLowerCase().startsWith('bearer')) {
       token = authorization.substring(7)
     }
@@ -45,7 +45,7 @@ const createNote = async (req, res) => {
       return
     }
 
-    if (!request.title || !request.content || !request.date) {
+    if (!request.title || !request.date) {
         res.status(404).send({ warning: 'Missing fields' })
         return
     }

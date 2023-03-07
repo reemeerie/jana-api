@@ -17,7 +17,7 @@ const createNote = async (newNote) => {
             , [newNote.title, newNote.content, newNote.date, newNote.user_id]
         )
     } catch {
-        return 'Eror: Couldnt create note'
+        return `Eror: Couldnt create note`
     }
 
     return 'Note created succesfully'

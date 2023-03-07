@@ -29,15 +29,15 @@ const getUser = async (req, res) => {
 
 const createUser = async (req, res) => {
     const request = req.body
-
+    
     if (!request.name || !request.email || !request.password || !request.password2) {
         res.status(404).send({ warning: 'Missing fields' })
-        return
+        return 'Missing fields'
     }
 
     if (request.password !== request.password2) {
         res.status(404).send({ warning: 'Passwords dont match' })
-        return
+        return 'Passwords dont match'
     }
 
     const user = {
