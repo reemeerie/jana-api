@@ -14,7 +14,7 @@ app.use(express.json())
 
 app.get('/', (req, res) => {
   return res.json({
-    message: 'working'
+    message: 'working v2'
   })
 })
 

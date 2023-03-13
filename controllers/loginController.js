@@ -7,11 +7,17 @@ const login = async (req, res) => {
 
     const [user] = await db.query('SELECT * FROM users WHERE email = ?', [email])
 
+    if (!user[0]) {
+        return res.status(401).json({
+            error: 'invalid user or password'
+        })
+    }
+
     const passwordCorrect = user[0] === null
     ? false
     : await bcrypt.compare(password, user[0].password)
 
-    if (!passwordCorrect || !user[0]) {
+    if (!passwordCorrect) {
         return res.status(401).json({
           error: 'invalid user or password'
         })
