@@ -15,7 +15,17 @@ const notesByUseridRouter = require("./src/routes/notesByUseridRouter")
 /* middlewares */
 const errorHandler = require("./src/middlewares/errorMiddleware")
 
-app.use(cors())
+app.use(
+  cors({
+    origin: [
+      "http://localhost:5173", // Vite
+      // agregar acá el dominio de front en prod 
+    ],
+    methods: ["GET", "POST", "PATCH", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
+)
+app.options("*", cors())
 app.use(express.json())
 
 app.get("/", (_req, res) => {
