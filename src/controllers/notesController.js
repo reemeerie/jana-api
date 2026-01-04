@@ -66,7 +66,7 @@ const deleteNote = async (req, res, next) => {
     const userId = req.user.id
     const deletedNote = await notesService.deleteNote(id, userId)
 
-    return res.status(410).json({ status: "OK", data: deletedNote })
+    return res.status(204).json({ status: "OK", data: deletedNote })
   } catch (err) {
     next(err)
   }
