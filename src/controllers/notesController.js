@@ -32,7 +32,7 @@ const createNote = async (req, res, next) => {
     const note = {
       title: req.body.title,
       content: req.body.content,
-      date: req.body.date,
+      date: new Date(),
       user_id: req.user.id,
     }
     const createdNote = await notesService.createNote(note)
@@ -46,9 +46,13 @@ const createNote = async (req, res, next) => {
 const editNote = async (req, res, next) => {
   try {
     const id = req.params.id
-    const changes = req.body
     const userId = req.user.id
-    const editedNote = await notesService.editNote(id, changes, userId)
+    const noteToEdit = {
+      title: req.body.title,
+      content: req.body.content,
+      date: new Date(),
+    }
+    const editedNote = await notesService.editNote(id, noteToEdit, userId)
 
     return res.json({ status: "OK", data: editedNote })
   } catch (err) {

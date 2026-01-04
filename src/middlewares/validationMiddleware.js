@@ -58,23 +58,18 @@ const validateLogin = (req, _res, next) => {
 }
 
 const validateCreateNote = (req, _res, next) => {
-  const { title, content, date } = req.body
+  const { title, content } = req.body
 
-  if (
-    typeof title !== "string" ||
-    typeof content !== "string" ||
-    typeof date !== "string"
-  ) {
+  if (typeof title !== "string" || typeof content !== "string") {
     throw new BadRequestError("Campos invalidos")
   }
 
-  if (!title || !date || !content) {
+  if (!title || !content) {
     throw new BadRequestError("Faltan campos")
   }
 
   req.body.title = title.trim()
   req.body.content = content.trim()
-  req.body.date = date.trim()
 
   next()
 }

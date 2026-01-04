@@ -22,7 +22,8 @@ const getNote = async (id) => {
 }
 
 const createNote = async (newNote) => {
-  const createdNote = await notesDriver.createNote(newNote)
+  const insertId = await notesDriver.createNote(newNote)
+  const createdNote = await notesDriver.getNote(insertId)
 
   return createdNote
 }
@@ -37,7 +38,10 @@ const editNote = async (id, changes, userId) => {
 
   const toUpdate = validateNotePatch(changes)
 
-  const editedNote = await notesDriver.editNote(id, toUpdate)
+  await notesDriver.editNote(id, toUpdate)
+
+  const editedNote = await notesDriver.getNote(id)
+
   return editedNote
 }
 

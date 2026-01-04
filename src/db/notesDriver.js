@@ -13,12 +13,12 @@ const getNote = async (id) => {
 }
 
 const createNote = async (newNote) => {
-  const [createdNote] = await db.query(
+  const [result] = await db.query(
     "INSERT INTO notes (title, content, date, user_id) VALUES (?, ?, ?, ?)",
     [newNote.title, newNote.content, newNote.date, newNote.user_id]
   )
 
-  return createdNote
+  return result.insertId
 }
 
 const editNote = async (id, changes) => {
@@ -42,16 +42,13 @@ const editNote = async (id, changes) => {
   }
 
   if (fields.length === 0) return
-  
+
   /* La query tiene 4 ?, la ultima es el ID */
   values.push(id)
 
-  const [result] = await db.query(
-    `UPDATE notes SET ${fields.join(", ")} WHERE id = ?`,
-    values
-  )
+  await db.query(`UPDATE notes SET ${fields.join(", ")} WHERE id = ?`, values)
 
-  return result[0]
+  return
 }
 
 const deleteNote = async (id) => {

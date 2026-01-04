@@ -19,15 +19,6 @@ const validateNotePatch = (changes) => {
     output.content = output.content.trim()
   }
 
-  if (output.date !== undefined) {
-    if (typeof output.date !== "string" || output.date === "") {
-      throw new BadRequestError(
-        "La fecha de la nota no puede estar vacía o es invalida"
-      )
-    }
-    output.date = output.date.trim()
-  }
-
   return output
 }
 
