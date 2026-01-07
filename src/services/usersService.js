@@ -18,30 +18,30 @@ que el email sea válido, lowercasearlo. Lanza errores de dominio, no status cod
 
 const getUsers = async () => {
   const users = await usersDriver.getUsers()
-  if (!users) throw new NotFoundError("No se encontraron usuarios")
+  if (!users) throw new NotFoundError("Users not found")
 
   return users
 }
 
 const getUser = async (id) => {
   const user = await usersDriver.getUser(id)
-  if (!user) throw new NotFoundError("Usuario no encontrado")
+  if (!user) throw new NotFoundError("User not found")
 
   return user
 }
 
 const createUser = async (newUser) => {
   if (!isValidEmail(newUser.email))
-    throw new BadRequestError("El email es invalido")
+    throw new BadRequestError("Invalid email")
 
   if (!isStrongPassword(newUser.password)) {
     throw new BadRequestError(
-      "La contraseña es muy débil: mínimo 5 caracteres, 1 mayúscula, 2 numeros"
+      "Weak password: min 5 chars, 1 uppercase, 2 numbers"
     )
   }
 
   const user = await usersDriver.getUserByEmail(newUser.email)
-  if (user) throw new ConflictError("Ya existe un usuario con ese email")
+  if (user) throw new ConflictError("User already exists")
 
   newUser.password = await bcrypt.hash(newUser.password, 10)
 
@@ -51,7 +51,7 @@ const createUser = async (newUser) => {
 
 const editUserByAdmin = async (id, changes) => {
   const user = await usersDriver.getUser(id)
-  if (!user) throw new NotFoundError("Usuario no encontrado")
+  if (!user) throw new NotFoundError("User not found")
 
   const toUpdate = validateUserPatch(changes)
 
@@ -66,7 +66,7 @@ const editUserByAdmin = async (id, changes) => {
 
 const deleteUser = async (id) => {
   const user = await usersDriver.getUser(id)
-  if (!user) throw new NotFoundError("Usuario no encontrado")
+  if (!user) throw new NotFoundError("User not found")
 
   const deletedUser = await usersDriver.deleteUser(id)
   return deletedUser

@@ -9,14 +9,14 @@ que el email sea válido, lowercasearlo. Lanza errores de dominio, no status cod
 
 const getNotes = async () => {
   const notes = await notesDriver.getNotes()
-  if (!notes) throw new NotFoundError("No se encontraron notas")
+  if (!notes) throw new NotFoundError("Notes not found")
 
   return notes
 }
 
 const getNote = async (id) => {
   const note = await notesDriver.getNote(id)
-  if (!note) throw new NotFoundError("Nota no encontrada")
+  if (!note) throw new NotFoundError("Note not found")
 
   return note
 }
@@ -30,10 +30,10 @@ const createNote = async (newNote) => {
 
 const editNote = async (id, changes, userId) => {
   const note = await notesDriver.getNote(id)
-  if (!note) throw new NotFoundError("Nota no encontrada")
+  if (!note) throw new NotFoundError("Note not found")
 
   if (note.user_id !== userId) {
-    throw new ForbiddenError("No podes editar esta nota")
+    throw new ForbiddenError("You can not update this note")
   }
 
   const toUpdate = validateNotePatch(changes)
@@ -47,10 +47,10 @@ const editNote = async (id, changes, userId) => {
 
 const deleteNote = async (id, userId) => {
   const note = await notesDriver.getNote(id)
-  if (!note) throw new NotFoundError("Nota no encontrada")
+  if (!note) throw new NotFoundError("Note not found")
 
   if (note.user_id !== userId) {
-    throw new ForbiddenError("No podes eliminar esta nota")
+    throw new ForbiddenError("You can not delete this note")
   }
 
   const deletedNote = await notesDriver.deleteNote(id)

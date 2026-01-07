@@ -29,15 +29,15 @@ const validateCreateUser = (req, _res, next) => {
     typeof password !== "string" ||
     typeof password2 !== "string"
   ) {
-    throw new BadRequestError("Campos invalidos")
+    throw new BadRequestError("Invalid fields")
   }
 
   if (!name.trim() || !email.trim() || !password || !password2) {
-    throw new BadRequestError("Faltan campos")
+    throw new BadRequestError("Missing fields")
   }
 
   if (password !== password2) {
-    throw new BadRequestError("Las contraseñas no coinciden")
+    throw new BadRequestError("Passwords do not match")
   }
 
   /* Si se normaliza segun un tenant, deberia hacerse en el service */
@@ -51,7 +51,7 @@ const validateLogin = (req, _res, next) => {
   const { email, password } = req.body
 
   if (!email || !password) {
-    throw new BadRequestError("Faltan campos")
+    throw new BadRequestError("Missing fields")
   }
 
   next()
@@ -61,11 +61,11 @@ const validateCreateNote = (req, _res, next) => {
   const { title, content } = req.body
 
   if (typeof title !== "string" || typeof content !== "string") {
-    throw new BadRequestError("Campos invalidos")
+    throw new BadRequestError("Invalid or missing fields")
   }
 
   if (!title || !content) {
-    throw new BadRequestError("Faltan campos")
+    throw new BadRequestError("Missing fields")
   }
 
   req.body.title = title.trim()

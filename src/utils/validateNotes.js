@@ -6,7 +6,7 @@ const validateNotePatch = (changes) => {
   if (output.title !== undefined) {
     if (typeof output.title !== "string" || output.title === "")
       throw new BadRequestError(
-        "El titulo de la nota no puede estar vacío o es invalido"
+        "Note title is invalid or empty"
       )
     output.title = output.title.trim()
   }
@@ -14,7 +14,7 @@ const validateNotePatch = (changes) => {
   if (output.content !== undefined) {
     if (typeof output.content !== "string" || output.content === "")
       throw new BadRequestError(
-        "El contenido de la nota no puede estar vacío o es invalido"
+        "Note content is invalid or empty"
       )
     output.content = output.content.trim()
   }

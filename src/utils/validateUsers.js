@@ -20,15 +20,15 @@ const validateUserPatch = (changes) => {
 
   if (output.email !== undefined) {
     if (typeof output.email !== "string")
-      throw new BadRequestError("Email inválido")
+      throw new BadRequestError("Invalid email")
     output.email = normalizeEmail(output.email)
-    if (output.email === "") throw new BadRequestError("Email inválido")
-    if (!isValidEmail(output.email)) throw new BadRequestError("Email inválido")
+    if (output.email === "") throw new BadRequestError("Invalid email")
+    if (!isValidEmail(output.email)) throw new BadRequestError("Invalid email")
   }
 
   if (output.name !== undefined) {
     if (typeof output.name !== "string" || output.name === "")
-      throw new BadRequestError("Nombre inválido")
+      throw new BadRequestError("Invalid name")
     output.name = output.name.trim()
   }
 

@@ -4,7 +4,7 @@ const userAuthenticated = (req, res, next) => {
   const authorization = req.get("authorization")
 
   if (!authorization || !authorization.toLowerCase().startsWith("bearer")) {
-    return res.status(401).json({ error: "Falta token" })
+    return res.status(401).json({ error: "Token missing" })
   }
 
   const token = authorization.substring(7)
@@ -15,7 +15,7 @@ const userAuthenticated = (req, res, next) => {
 
     next()
   } catch {
-    return res.status(401).json({ error: "Token invalido o vencido" })
+    return res.status(401).json({ error: "Token missing or invalid" })
   }
 }
 

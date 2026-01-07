@@ -5,12 +5,12 @@ const { UnauthorizedError } = require("../errors/errors")
 
 const login = async (loggingUser) => {
   const user = await usersDriver.getUserByEmail(loggingUser.email)
-  if (!user) throw new UnauthorizedError("Usuario o contraseña invalidos")
+  if (!user) throw new UnauthorizedError("Invalid user or password")
 
   const passwordCorrect = await bcrypt.compare(loggingUser.password, user.password)
 
   if (!passwordCorrect) {
-    throw new UnauthorizedError("Usuario o contraseña invalidos")
+    throw new UnauthorizedError("Invalid user or password")
   }
 
   const userToken = {
